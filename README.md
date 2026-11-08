@@ -1,5 +1,9 @@
 # Ops HQ Demo
 
+[![CI](https://github.com/marchikx/ops-hq-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/marchikx/ops-hq-demo/actions/workflows/ci.yml) ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+
+**Live demo:** https://marchikx.github.io/ops-hq-demo/ — static build of `data/seed.json`, no login.
+
 Small **dark-mode operations dashboard** for a GitHub portfolio. It demonstrates how three backend-adjacent libraries fit together — without npm-linking sibling repos. Thin mocks live under `lib/` and read from `data/seed.json`.
 
 ## What you see
