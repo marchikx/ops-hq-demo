@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "environment": "demo",
+    "region": "eu-central-1",
+    "updatedAt": "2026-11-08T12:00:00Z"
+  },
+  "deliveries": [
+    {
+      "id": "del_01H9XK2",
+      "event": "user.created",
+      "destination": "https://hooks.acme.io/inbound",
+      "status": "delivered",
+      "attempts": 1,
+      "lastAttemptAt": "2026-11-08T11:42:00Z",
+      "latencyMs": 142
+    },
+    {
+      "id": "del_01H9XK3",
+      "event": "invoice.paid",
+      "destination": "https://hooks.acme.io/inbound",
+      "status": "retrying",
+      "attempts": 3,
+      "lastAttemptAt": "2026-11-08T11:55:00Z",
+      "latencyMs": null,
+      "error": "HTTP 503 upstream"
+    },
+    {
+      "id": "del_01H9XK4",
+      "event": "order.fulfilled",
+      "destination": "https://partner.vendor.dev/events",
+      "status": "pending",
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "latencyMs": null
+    },
+    {
+      "id": "del_01H9XK5",
+      "event": "subscription.updated",
+      "destination": "https://hooks.acme.io/inbound",
+      "status": "dead_letter",
+      "attempts": 5,
+      "lastAttemptAt": "2026-11-08T10:20:00Z",
+      "latencyMs": 890,
+      "error": "signature verification failed"
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay_7k2m",
+      "type": "charge",
+      "amountCents": 49900,
+      "currency": "EUR",
+      "status": "succeeded",
+      "customerRef": "cus_demo_01",
+      "createdAt": "2026-11-07T14:22:00Z"
+    },
+    {
+      "id": "pay_7k2n",
+      "type": "refund",
+      "amountCents": 1200,
+      "currency": "EUR",
+      "status": "succeeded",
+      "customerRef": "cus_demo_02",
+      "createdAt": "2026-11-08T09:10:00Z"
+    },
+    {
+      "id": "pay_7k2o",
+      "type": "charge",
+      "amountCents": 9900,
+      "currency": "USD",
+      "status": "pending",
+      "customerRef": "cus_demo_03",
+      "createdAt": "2026-11-08T11:30:00Z"
+    },
+    {
+      "id": "pay_7k2p",
+      "type": "payout",
+      "amountCents": 250000,
+      "currency": "EUR",
+      "status": "in_transit",
+      "customerRef": "acct_connect_01",
+      "createdAt": "2026-11-06T08:00:00Z"
+    }
+  ],
+  "llmBudget": {
+    "dailyCeilingUsd": 50,
+    "spentTodayUsd": 12.47,
+    "requestCountToday": 847,
+    "blockedCountToday": 3,
+    "lastGateDecision": "allow",
+    "topModels": [
+      { "model": "gpt-4o-mini", "spendUsd": 6.12, "calls": 612 },
+      { "model": "claude-sonnet", "spendUsd": 4.85, "calls": 198 },
+      { "model": "embed-v3", "spendUsd": 1.5, "calls": 37 }
+    ],
+    "recentBlocks": [
+      {
+        "at": "2026-11-08T11:12:00Z",
+        "reason": "daily_ceiling_exceeded",
+        "requestedUsd": 2.4
+      },
+      {
+        "at": "2026-11-08T08:44:00Z",
+        "reason": "model_not_allowlisted",
+        "requestedUsd": 0.8
+      }
+    ]
+  },
+  "overviewKpis": {
+    "webhookSuccessRate": 0.94,
+    "ledgerReconciled": true,
+    "llmUnderBudget": true,
+    "openIncidents": 1
+  }
+}
