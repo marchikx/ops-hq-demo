@@ -22,13 +22,16 @@ export default function OverviewPage() {
   return (
     <Shell>
       <section className="mb-10 animate-rise">
-        <p className="text-xs uppercase tracking-[0.22em] text-accent mb-3">Ops HQ</p>
+        <p className="text-xs uppercase tracking-[0.22em] text-accent mb-3">
+          Portfolio demo · Andrii Marchuk
+        </p>
         <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight max-w-2xl leading-tight">
-          See a money-path failure in sixty seconds
+          Press a button. Watch a failure path that usually costs money.
         </h1>
         <p className="text-muted mt-3 max-w-2xl text-sm sm:text-base">
-          One console wired to real packages: outbox leases and DLQ, Stripe 202→worker,
-          fail-closed LLM budget. Seed KPIs below are coherent demo data — buttons run live code.
+          Three real packages from my GitHub profile are wired in below. The KPI
+          cards are seeded sample data so the screen looks complete — the
+          buttons run live library code in your browser (no backend, no secrets).
         </p>
       </section>
 
@@ -36,6 +39,9 @@ export default function OverviewPage() {
         <IncidentConsole />
       </div>
 
+      <p className="text-xs text-muted mb-4">
+        Sample snapshot (seed JSON) — not production traffic:
+      </p>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-10">
         <StatCard
           label="Webhook success"
@@ -97,7 +103,7 @@ export default function OverviewPage() {
       </section>
 
       <p className="mt-8 text-xs text-muted font-mono">
-        env: {seed.meta.environment} · {seed.meta.region} · updated{" "}
+        env: {seed.meta.environment} · {seed.meta.region} · seed updated{" "}
         {new Date(seed.meta.updatedAt).toLocaleString()}
       </p>
     </Shell>

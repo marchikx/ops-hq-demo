@@ -38,12 +38,16 @@ export function IncidentConsole() {
     >
       <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-accent mb-1">Live proof</p>
-          <h2 className="text-xl font-semibold tracking-tight">Run incident (60s)</h2>
+          <p className="text-xs uppercase tracking-[0.2em] text-accent mb-1">
+            Try it
+          </p>
+          <h2 className="text-xl font-semibold tracking-tight">
+            Three failure paths (about a minute)
+          </h2>
           <p className="text-sm text-muted mt-1 max-w-xl">
-            Real imports: <code className="text-accent/90">webhook-relay</code>,{" "}
-            <code className="text-accent/90">stripe-payments-ledger</code>,{" "}
-            <code className="text-accent/90">llm-guardrails</code> — in-memory, seeded demo.
+            Each button calls a real package: webhook delivery → dead-letter,
+            Stripe-style accept-then-process, LLM budget deny. Logs appear below
+            so you can see what happened — not a fake animation.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -54,7 +58,7 @@ export function IncidentConsole() {
             onClick={() => run("webhook")}
             className="px-3 py-2 rounded-md bg-accent text-black text-sm font-medium hover:bg-accent-dim disabled:opacity-50 transition"
           >
-            Webhook → DLQ
+            1. Fail a webhook
           </button>
           <button
             type="button"
@@ -63,7 +67,7 @@ export function IncidentConsole() {
             onClick={() => run("payment")}
             className="px-3 py-2 rounded-md border border-border text-sm hover:border-accent/50 disabled:opacity-50 transition"
           >
-            Payment 202→work
+            2. Accept a payment
           </button>
           <button
             type="button"
@@ -72,13 +76,13 @@ export function IncidentConsole() {
             onClick={() => run("llm-deny")}
             className="px-3 py-2 rounded-md border border-border text-sm hover:border-accent/50 disabled:opacity-50 transition"
           >
-            LLM deny
+            3. Block an LLM call
           </button>
         </div>
       </div>
       <div className="grid gap-3 sm:grid-cols-3 mb-4 text-sm">
         <div className="rounded-lg bg-surface border border-border p-3">
-          <div className="text-muted text-xs mb-1">Delivery</div>
+          <div className="text-muted text-xs mb-1">Webhook delivery</div>
           <div data-testid="delivery-status" className="font-mono">
             {state.deliveryStatus}
           </div>
@@ -102,7 +106,7 @@ export function IncidentConsole() {
         className="max-h-48 overflow-auto rounded-lg bg-black/40 border border-border p-3 font-mono text-xs space-y-1"
       >
         {state.logs.length === 0 ? (
-          <li className="text-muted">Press a button — logs appear here.</li>
+          <li className="text-muted">Press a numbered button — a log line appears here.</li>
         ) : (
           state.logs.map((l, i) => (
             <li key={`${l.at}-${i}`}>
