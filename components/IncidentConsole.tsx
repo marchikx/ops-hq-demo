@@ -13,18 +13,37 @@ const empty: IncidentState = {
   llmDecision: "idle",
 };
 
+function humanOutcome(state: IncidentState): string {
+  if (state.deliveryStatus === "dead") {
+    return "Result: the webhook failed repeatedly and was moved to the dead-letter queue (no more retries).";
+  }
+  if (state.deliveryStatus === "delivered") {
+    return "Result: the webhook was delivered successfully.";
+  }
+  if (state.paymentAck === "202" && state.paymentOutcome === "applied") {
+    return "Result: payment event accepted immediately (202), then applied by a worker step — not processed on the request thread.";
+  }
+  if (state.llmDecision && state.llmDecision !== "idle" && state.llmDecision !== "n/a" && state.llmDecision !== "allow") {
+    return `Result: the LLM call was blocked (${state.llmDecision}) so spend cannot exceed the daily cap.`;
+  }
+  if (state.llmDecision === "allow") {
+    return "Result: a small LLM call was allowed and recorded against the budget.";
+  }
+  return "";
+}
+
 export function IncidentConsole() {
   const runtime = useMemo(() => createIncidentRuntime(), []);
   const [state, setState] = useState<IncidentState>(empty);
   const [busy, setBusy] = useState(false);
+  const outcome = humanOutcome(state);
 
-  async function run(kind: "webhook" | "payment" | "llm-deny" | "llm-allow") {
+  async function run(kind: "webhook" | "payment" | "llm-deny") {
     setBusy(true);
     try {
       if (kind === "webhook") setState(await runtime.runWebhookIncident(true));
       else if (kind === "payment") setState(await runtime.runPaymentIncident());
-      else if (kind === "llm-deny") setState(runtime.runLlmDeny());
-      else setState(runtime.runLlmAllowSmall());
+      else setState(runtime.runLlmDeny());
     } finally {
       setBusy(false);
     }
@@ -38,16 +57,13 @@ export function IncidentConsole() {
     >
       <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-accent mb-1">
-            Try it
-          </p>
+          <p className="text-xs uppercase tracking-[0.2em] text-accent mb-1">Try it</p>
           <h2 className="text-xl font-semibold tracking-tight">
             Three failure paths (about a minute)
           </h2>
           <p className="text-sm text-muted mt-1 max-w-xl">
-            Each button calls a real package: webhook delivery → dead-letter,
-            Stripe-style accept-then-process, LLM budget deny. Logs appear below
-            so you can see what happened — not a fake animation.
+            Each button runs real code from my GitHub libraries in your browser.
+            You should see a plain-English result under the boxes — not only a status code.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -101,12 +117,24 @@ export function IncidentConsole() {
           </div>
         </div>
       </div>
+      {outcome ? (
+        <p
+          data-testid="human-outcome"
+          className="mb-4 text-sm text-accent border border-accent/30 rounded-lg px-3 py-2 bg-accent/5"
+        >
+          {outcome}
+        </p>
+      ) : (
+        <p data-testid="human-outcome" className="mb-4 text-sm text-muted">
+          Press a numbered button — a plain-English result appears here.
+        </p>
+      )}
       <ol
         data-testid="incident-log"
         className="max-h-48 overflow-auto rounded-lg bg-black/40 border border-border p-3 font-mono text-xs space-y-1"
       >
         {state.logs.length === 0 ? (
-          <li className="text-muted">Press a numbered button — a log line appears here.</li>
+          <li className="text-muted">Technical log (optional to read) appears after a click.</li>
         ) : (
           state.logs.map((l, i) => (
             <li key={`${l.at}-${i}`}>

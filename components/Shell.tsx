@@ -29,7 +29,7 @@ export function Shell({
         {children}
       </main>
       <footer className="relative border-t border-border py-4 text-center text-xs text-muted">
-        Portfolio demo · seed + live lib wiring · no production secrets
+        Portfolio proof for hirers · sample seed data · no production secrets
       </footer>
     </div>
   );

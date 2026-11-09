@@ -23,15 +23,24 @@ export default function OverviewPage() {
     <Shell>
       <section className="mb-10 animate-rise">
         <p className="text-xs uppercase tracking-[0.22em] text-accent mb-3">
-          Portfolio demo · Andrii Marchuk
+          Andrii Marchuk · portfolio proof
         </p>
         <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight max-w-2xl leading-tight">
-          Press a button. Watch a failure path that usually costs money.
+          Press a button. Watch a failure that usually costs money.
         </h1>
         <p className="text-muted mt-3 max-w-2xl text-sm sm:text-base">
-          Three real packages from my GitHub profile are wired in below. The KPI
-          cards are seeded sample data so the screen looks complete — the
-          buttons run live library code in your browser (no backend, no secrets).
+          This page is for hirers. The buttons run real code from my GitHub
+          libraries in your browser. The cards below are sample data only — so
+          the screen looks complete, not because this is production traffic.
+        </p>
+        <p className="text-xs text-muted mt-2">
+          Hirer guide:{" "}
+          <a
+            className="text-accent underline"
+            href="https://github.com/marchikx/ops-hq-demo/blob/main/FOR_HIRERS.md"
+          >
+            FOR_HIRERS.md
+          </a>
         </p>
       </section>
 
@@ -39,9 +48,7 @@ export default function OverviewPage() {
         <IncidentConsole />
       </div>
 
-      <p className="text-xs text-muted mb-4">
-        Sample snapshot (seed JSON) — not production traffic:
-      </p>
+      <p className="text-xs text-muted mb-4">Sample snapshot (seed JSON) — not production:</p>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-10">
         <StatCard
           label="Webhook success"
@@ -75,37 +82,26 @@ export default function OverviewPage() {
       <section className="grid gap-4 md:grid-cols-3">
         <Link
           href="/deliveries"
-          className="group rounded-lg border border-border bg-panel/70 p-5 hover:border-accent/40 transition-colors animate-rise"
+          className="group rounded-lg border border-border bg-panel/70 p-5 hover:border-accent/40 transition-colors"
         >
-          <h2 className="font-medium mb-2 group-hover:text-accent">Deliveries</h2>
-          <p className="text-sm text-muted">
-            Outbox queue, retries, and DLQ — webhook-relay pattern.
-          </p>
+          <h2 className="font-medium mb-2 group-hover:text-accent">Deliveries table</h2>
+          <p className="text-sm text-muted">Sample queue rows (seed).</p>
         </Link>
         <Link
           href="/payments"
-          className="group rounded-lg border border-border bg-panel/70 p-5 hover:border-accent/40 transition-colors animate-rise [animation-delay:60ms]"
+          className="group rounded-lg border border-border bg-panel/70 p-5 hover:border-accent/40 transition-colors"
         >
-          <h2 className="font-medium mb-2 group-hover:text-accent">Payments</h2>
-          <p className="text-sm text-muted">
-            Ledger entries, refunds, payouts — stripe-payments-ledger pattern.
-          </p>
+          <h2 className="font-medium mb-2 group-hover:text-accent">Payments table</h2>
+          <p className="text-sm text-muted">Sample ledger rows (seed).</p>
         </Link>
         <Link
           href="/llm-budget"
-          className="group rounded-lg border border-border bg-panel/70 p-5 hover:border-accent/40 transition-colors animate-rise [animation-delay:120ms]"
+          className="group rounded-lg border border-border bg-panel/70 p-5 hover:border-accent/40 transition-colors"
         >
-          <h2 className="font-medium mb-2 group-hover:text-accent">LLM budget</h2>
-          <p className="text-sm text-muted">
-            Daily ceiling and allow/deny gate — llm-guardrails pattern.
-          </p>
+          <h2 className="font-medium mb-2 group-hover:text-accent">Budget table</h2>
+          <p className="text-sm text-muted">Sample spend snapshot (seed).</p>
         </Link>
       </section>
-
-      <p className="mt-8 text-xs text-muted font-mono">
-        env: {seed.meta.environment} · {seed.meta.region} · seed updated{" "}
-        {new Date(seed.meta.updatedAt).toLocaleString()}
-      </p>
     </Shell>
   );
 }

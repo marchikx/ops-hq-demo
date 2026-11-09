@@ -9,14 +9,14 @@ const siteUrl =
     : "http://localhost:3000";
 
 export const metadata: Metadata = {
-  title: "Ops HQ Demo — webhook · payments · LLM gates",
+  title: "Ops HQ Demo — press a button, watch a money-path failure",
   description:
-    "Interactive ops console: webhook-relay DLQ, Stripe 202→worker ledger, llm-guardrails deny paths — real library imports.",
+    "Interactive hire proof: fail a webhook, accept a payment safely, or block an LLM call — real library code in the browser.",
   metadataBase: new URL(siteUrl),
   openGraph: {
     title: "Ops HQ Demo",
     description:
-      "Run a 60s incident: outbox→retry→DLQ, payment 202→work, LLM budget deny.",
+      "For hirers: press button 1–3 and read a plain-English result. Sample seed KPIs only.",
     url: siteUrl,
     siteName: "Ops HQ Demo",
     type: "website",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Ops HQ Demo",
-    description: "Interactive portfolio proof for webhook, payment, LLM failure paths.",
+    description: "Press a button. Watch a failure that usually costs money.",
     images: ["/og.png"],
   },
   icons: {

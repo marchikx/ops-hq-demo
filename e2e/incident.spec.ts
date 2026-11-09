@@ -1,8 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("incident console", () => {
-  test("webhook DLQ, payment 202, LLM deny mutate UI", async ({ page }) => {
-    // Relative path keeps GH Pages basePath (/ops-hq-demo/) when PLAYWRIGHT_BASE_URL is set
+  test("human outcomes for webhook, payment, LLM", async ({ page }) => {
     await page.goto("./");
     await expect(page.getByTestId("incident-console")).toBeVisible();
 
@@ -10,18 +9,20 @@ test.describe("incident console", () => {
     await expect(page.getByTestId("delivery-status")).toHaveText(/dead/, {
       timeout: 30_000,
     });
-    await expect(page.getByTestId("incident-log")).toContainText("OutboxStore");
+    await expect(page.getByTestId("human-outcome")).toContainText(
+      /dead-letter|dead letter/i,
+    );
 
     await page.getByTestId("btn-payment").click();
     await expect(page.getByTestId("payment-status")).toContainText("202", {
       timeout: 15_000,
     });
-    await expect(page.getByTestId("payment-status")).toContainText("applied");
+    await expect(page.getByTestId("human-outcome")).toContainText(/202/i);
 
     await page.getByTestId("btn-llm-deny").click();
     await expect(page.getByTestId("llm-status")).not.toHaveText("idle", {
       timeout: 10_000,
     });
-    await expect(page.getByTestId("incident-log")).toContainText(/denied|UNKNOWN/i);
+    await expect(page.getByTestId("human-outcome")).toContainText(/blocked/i);
   });
 });
