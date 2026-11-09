@@ -15,7 +15,7 @@
     "verify": "vitest run && tsc --noEmit",
     "lint": "next lint",
     "test:e2e": "playwright test",
-    "test:e2e:live": "cross-env PLAYWRIGHT_BASE_URL=https://marchikx.github.io/ops-hq-demo playwright test"
+    "test:e2e:live": "cross-env PLAYWRIGHT_BASE_URL=https://marchikx.github.io/ops-hq-demo/ playwright test"
   },
   "dependencies": {
     "buffer": "^6.0.3",

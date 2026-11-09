@@ -2,7 +2,8 @@ import { test, expect } from "@playwright/test";
 
 test.describe("incident console", () => {
   test("webhook DLQ, payment 202, LLM deny mutate UI", async ({ page }) => {
-    await page.goto("/");
+    // Relative path keeps GH Pages basePath (/ops-hq-demo/) when PLAYWRIGHT_BASE_URL is set
+    await page.goto("./");
     await expect(page.getByTestId("incident-console")).toBeVisible();
 
     await page.getByTestId("btn-webhook").click();
