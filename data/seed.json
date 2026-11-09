@@ -2,16 +2,17 @@
   "meta": {
     "environment": "demo",
     "region": "eu-central-1",
-    "updatedAt": "2026-11-08T12:00:00Z"
+    "updatedAt": "2026-11-09T12:00:00Z",
+    "note": "Seeded interactive demo — not production traffic"
   },
   "deliveries": [
     {
       "id": "del_01H9XK2",
-      "event": "user.created",
+      "event": "lead.created",
       "destination": "https://hooks.acme.io/inbound",
       "status": "delivered",
       "attempts": 1,
-      "lastAttemptAt": "2026-11-08T11:42:00Z",
+      "lastAttemptAt": "2026-11-09T11:42:00Z",
       "latencyMs": 142
     },
     {
@@ -20,7 +21,7 @@
       "destination": "https://hooks.acme.io/inbound",
       "status": "retrying",
       "attempts": 3,
-      "lastAttemptAt": "2026-11-08T11:55:00Z",
+      "lastAttemptAt": "2026-11-09T11:55:00Z",
       "latencyMs": null,
       "error": "HTTP 503 upstream"
     },
@@ -39,9 +40,9 @@
       "destination": "https://hooks.acme.io/inbound",
       "status": "dead_letter",
       "attempts": 5,
-      "lastAttemptAt": "2026-11-08T10:20:00Z",
+      "lastAttemptAt": "2026-11-09T10:20:00Z",
       "latencyMs": 890,
-      "error": "signature verification failed"
+      "error": "HTTP 500 upstream"
     }
   ],
   "payments": [
@@ -52,7 +53,7 @@
       "currency": "EUR",
       "status": "succeeded",
       "customerRef": "cus_demo_01",
-      "createdAt": "2026-11-07T14:22:00Z"
+      "createdAt": "2026-11-08T14:22:00Z"
     },
     {
       "id": "pay_7k2n",
@@ -61,7 +62,7 @@
       "currency": "EUR",
       "status": "succeeded",
       "customerRef": "cus_demo_02",
-      "createdAt": "2026-11-08T09:10:00Z"
+      "createdAt": "2026-11-09T09:10:00Z"
     },
     {
       "id": "pay_7k2o",
@@ -70,7 +71,7 @@
       "currency": "USD",
       "status": "pending",
       "customerRef": "cus_demo_03",
-      "createdAt": "2026-11-08T11:30:00Z"
+      "createdAt": "2026-11-09T11:30:00Z"
     },
     {
       "id": "pay_7k2p",
@@ -79,29 +80,29 @@
       "currency": "EUR",
       "status": "in_transit",
       "customerRef": "acct_connect_01",
-      "createdAt": "2026-11-06T08:00:00Z"
+      "createdAt": "2026-11-07T08:00:00Z"
     }
   ],
   "llmBudget": {
     "dailyCeilingUsd": 50,
-    "spentTodayUsd": 12.47,
+    "spentTodayUsd": 48.2,
     "requestCountToday": 847,
     "blockedCountToday": 3,
     "lastGateDecision": "allow",
     "topModels": [
-      { "model": "gpt-4o-mini", "spendUsd": 6.12, "calls": 612 },
-      { "model": "claude-sonnet", "spendUsd": 4.85, "calls": 198 },
-      { "model": "embed-v3", "spendUsd": 1.5, "calls": 37 }
+      { "model": "gpt-4o-mini", "spendUsd": 28.1, "calls": 612 },
+      { "model": "claude-3-5-sonnet", "spendUsd": 18.6, "calls": 198 },
+      { "model": "openrouter/free", "spendUsd": 1.5, "calls": 37 }
     ],
     "recentBlocks": [
       {
-        "at": "2026-11-08T11:12:00Z",
-        "reason": "daily_ceiling_exceeded",
+        "at": "2026-11-09T11:12:00Z",
+        "reason": "BUDGET_HARD_CAP_EXCEEDED",
         "requestedUsd": 2.4
       },
       {
-        "at": "2026-11-08T08:44:00Z",
-        "reason": "model_not_allowlisted",
+        "at": "2026-11-09T08:44:00Z",
+        "reason": "UNKNOWN_MODEL",
         "requestedUsd": 0.8
       }
     ]

@@ -1,25 +1,41 @@
 import Link from "next/link";
 import { Shell } from "@/components/Shell";
 import { StatCard } from "@/components/StatCard";
+import { IncidentConsole } from "@/components/IncidentConsole";
 import { loadSeed } from "@/lib/seed";
 import { computeSuccessRate } from "@/lib/mockWebhook";
-import { pendingExposureCents, formatMoney, isLedgerReconciled } from "@/lib/mockPayments";
+import {
+  pendingExposureCents,
+  formatMoney,
+  isLedgerReconciled,
+} from "@/lib/mockPayments";
 import { remainingBudgetUsd, utilizationRatio } from "@/lib/mockLlm";
 
 export default function OverviewPage() {
   const seed = loadSeed();
   const kpis = seed.overviewKpis;
   const successPct = (computeSuccessRate() * 100).toFixed(1);
-  const pendingEur = seed.payments.find(
-    (p) => p.status === "pending" && p.currency === "USD"
+  const pendingUsd = seed.payments.find(
+    (p) => p.status === "pending" && p.currency === "USD",
   );
 
   return (
-    <Shell title="Operations overview">
-      <p className="text-muted text-sm mb-8 max-w-2xl">
-        Single-pane health for outbound webhooks, payment ledger reconciliation, and
-        LLM spend gates — wired from seed JSON, mirroring portfolio library boundaries.
-      </p>
+    <Shell>
+      <section className="mb-10 animate-rise">
+        <p className="text-xs uppercase tracking-[0.22em] text-accent mb-3">Ops HQ</p>
+        <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight max-w-2xl leading-tight">
+          See a money-path failure in sixty seconds
+        </h1>
+        <p className="text-muted mt-3 max-w-2xl text-sm sm:text-base">
+          One console wired to real packages: outbox leases and DLQ, Stripe 202→worker,
+          fail-closed LLM budget. Seed KPIs below are coherent demo data — buttons run live code.
+        </p>
+      </section>
+
+      <div className="mb-10">
+        <IncidentConsole />
+      </div>
+
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-10">
         <StatCard
           label="Webhook success"
@@ -30,7 +46,7 @@ export default function OverviewPage() {
         <StatCard
           label="Ledger"
           value={isLedgerReconciled() ? "Reconciled" : "Drift"}
-          hint="Stripe-style ledger mock"
+          hint="Seed ledger view"
           ok={isLedgerReconciled()}
         />
         <StatCard
@@ -42,17 +58,18 @@ export default function OverviewPage() {
         <StatCard
           label="Pending charges"
           value={
-            pendingEur
+            pendingUsd
               ? formatMoney(pendingExposureCents(), "USD")
               : formatMoney(0, "USD")
           }
-          hint="Unsettled exposure"
+          hint="Unsettled USD exposure (seed)"
         />
       </div>
+
       <section className="grid gap-4 md:grid-cols-3">
         <Link
           href="/deliveries"
-          className="group rounded-lg border border-border bg-panel p-5 hover:border-accent/40 transition-colors"
+          className="group rounded-lg border border-border bg-panel/70 p-5 hover:border-accent/40 transition-colors animate-rise"
         >
           <h2 className="font-medium mb-2 group-hover:text-accent">Deliveries</h2>
           <p className="text-sm text-muted">
@@ -61,16 +78,16 @@ export default function OverviewPage() {
         </Link>
         <Link
           href="/payments"
-          className="group rounded-lg border border-border bg-panel p-5 hover:border-accent/40 transition-colors"
+          className="group rounded-lg border border-border bg-panel/70 p-5 hover:border-accent/40 transition-colors animate-rise [animation-delay:60ms]"
         >
           <h2 className="font-medium mb-2 group-hover:text-accent">Payments</h2>
           <p className="text-sm text-muted">
-            Ledger entries, refunds, payouts — stripe-ledger pattern.
+            Ledger entries, refunds, payouts — stripe-payments-ledger pattern.
           </p>
         </Link>
         <Link
           href="/llm-budget"
-          className="group rounded-lg border border-border bg-panel p-5 hover:border-accent/40 transition-colors"
+          className="group rounded-lg border border-border bg-panel/70 p-5 hover:border-accent/40 transition-colors animate-rise [animation-delay:120ms]"
         >
           <h2 className="font-medium mb-2 group-hover:text-accent">LLM budget</h2>
           <p className="text-sm text-muted">
@@ -78,6 +95,7 @@ export default function OverviewPage() {
           </p>
         </Link>
       </section>
+
       <p className="mt-8 text-xs text-muted font-mono">
         env: {seed.meta.environment} · {seed.meta.region} · updated{" "}
         {new Date(seed.meta.updatedAt).toLocaleString()}

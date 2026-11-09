@@ -1,11 +1,5 @@
 import Link from "next/link";
-
-const nav = [
-  { href: "/", label: "Overview" },
-  { href: "/deliveries", label: "Deliveries" },
-  { href: "/payments", label: "Payments" },
-  { href: "/llm-budget", label: "LLM budget" },
-];
+import { NavLinks } from "@/components/NavLinks";
 
 export function Shell({
   children,
@@ -15,33 +9,27 @@ export function Shell({
   title?: string;
 }) {
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="border-b border-border bg-surface/80 backdrop-blur-sm sticky top-0 z-10">
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(20,184,166,0.12),_transparent_55%),radial-gradient(ellipse_at_bottom_right,_rgba(56,189,248,0.06),_transparent_45%)]"
+      />
+      <header className="relative border-b border-border bg-surface/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between gap-4">
           <Link href="/" className="font-semibold tracking-tight text-accent">
             Ops HQ Demo
           </Link>
-          <nav className="flex flex-wrap gap-1 text-sm">
-            {nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="px-3 py-1.5 rounded-md text-muted hover:text-[var(--color-text)] hover:bg-panel transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+          <NavLinks />
         </div>
       </header>
-      <main className="flex-1 mx-auto w-full max-w-5xl px-4 py-8 animate-fade-in">
+      <main className="relative flex-1 mx-auto w-full max-w-5xl px-4 py-8 animate-fade-in">
         {title ? (
           <h1 className="text-2xl font-semibold mb-6 tracking-tight">{title}</h1>
         ) : null}
         {children}
       </main>
-      <footer className="border-t border-border py-4 text-center text-xs text-muted">
-        Portfolio demo · seed data only · no production secrets
+      <footer className="relative border-t border-border py-4 text-center text-xs text-muted">
+        Portfolio demo · seed + live lib wiring · no production secrets
       </footer>
     </div>
   );
