@@ -1,24 +1,20 @@
-# Playwright proof — Ops HQ Demo
+# Playwright proof (cold hire)
 
-## Local (2026-11-09)
+## Latest live run
 
-```text
-npx playwright test
-ok 1 [chromium] › e2e/incident.spec.ts › webhook DLQ, payment 202, LLM deny mutate UI
-1 passed
+Command:
+
+```bash
+PLAYWRIGHT_BASE_URL=https://marchikx.github.io/ops-hq-demo/ npm run test:e2e
 ```
+
+Result: **1 passed** — human outcomes for webhook, payment, LLM.
 
 Assertions:
-- `delivery-status` → `dead` (webhook-relay DLQ)
-- `payment-status` contains `202` + `applied`
-- `llm-status` / log contains deny / UNKNOWN
 
-## Live GH Pages (2026-11-09)
+- `incident-console` visible
+- Button 1 → `delivery-status` matches `/dead/` + `human-outcome` mentions dead-letter
+- Button 2 → payment shows `202` + human-outcome mentions 202
+- Button 3 → LLM status leaves `idle` + human-outcome mentions blocked
 
-```text
-PLAYWRIGHT_BASE_URL=https://marchikx.github.io/ops-hq-demo/
-ok 1 [chromium] › e2e/incident.spec.ts › webhook DLQ, payment 202, LLM deny mutate UI
-1 passed (3.9s)
-```
-
-Also: `curl -I` → HTTP 200 for `/` and `/og.png` (image/png).
+Screens: `walkthrough/01-webhook-dead.png` … `03-llm-blocked.png` (see `WALKTHROUGH.md`).
