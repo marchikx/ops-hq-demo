@@ -21,14 +21,14 @@
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.1",
     "geist": "^1.3.1",
-    "llm-guardrails": "file:../llm-guardrails",
+    "llm-guardrails": "github:marchikx/llm-guardrails#main",
     "next": "^14.2.18",
     "process": "^0.11.10",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "stream-browserify": "^3.0.0",
-    "stripe-payments-ledger": "file:../stripe-payments-ledger",
-    "webhook-relay": "file:../webhook-relay"
+    "stripe-payments-ledger": "github:marchikx/stripe-payments-ledger#main",
+    "webhook-relay": "github:marchikx/webhook-relay#main"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
